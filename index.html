@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sinta Nur Annisa — UI/UX Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/devicon/2.17.0/devicon.min.css"/>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --maroon:#7A1538;
+    --maroon-deep:#5C0F2A;
+    --pink:#D6336C;
+    --pink-soft:#F4A9C2;
+    --blush:#FBE5EC;
+    --blush-2:#FCEEF2;
+    --cream:#FFF8F7;
+    --text-dark:#2B0E1C;
+    --text-gray:#7A6570;
+    --border:#F2D7E0;
+    --font-display:'Playfair Display',Georgia,serif;
+    --font-body:'DM Sans',system-ui,sans-serif;
+    --font-script:'Caveat',cursive;
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--font-body);background:var(--cream);color:var(--text-dark);overflow-x:hidden;}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
+  .reveal.visible{opacity:1;transform:none;}
+  a{text-decoration:none;color:inherit;}
+
+  /* ===== NAV ===== */
+  nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 5vw;background:rgba(255,248,247,.9);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s;}
+  nav.scrolled{border-color:var(--border);box-shadow:0 4px 24px rgba(122,21,56,.06);}
+  .nav-logo-block{display:flex;flex-direction:column;line-height:1.15;}
+  .nav-logo{font-family:var(--font-display);font-weight:800;font-size:1.05rem;letter-spacing:.02em;color:var(--maroon);text-transform:uppercase;}
+  .nav-sub{font-size:.7rem;color:var(--text-gray);}
+  .nav-links{display:flex;gap:2.2rem;list-style:none;}
+  .nav-links a{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dark);position:relative;padding-bottom:6px;transition:color .2s;}
+  .nav-links a.active{color:var(--pink);}
+  .nav-links a.active::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--pink);border-radius:2px;}
+  .nav-links a:hover{color:var(--pink);}
+  .nav-cta{display:inline-flex;align-items:center;gap:.5rem;font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#fff;background:var(--maroon);padding:.7rem 1.4rem;border-radius:2rem;transition:background .25s,transform .2s;}
+  .nav-cta:hover{background:var(--pink);transform:translateY(-2px);}
+  .nav-cta-mobile{display:none;}
+
+  /* Hamburger button (hidden on desktop) */
+  .nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:34px;height:34px;background:none;border:none;cursor:pointer;padding:0;z-index:110;}
+  .nav-toggle span{display:block;width:100%;height:2px;background:var(--maroon);border-radius:2px;transition:transform .3s var(--ease),opacity .3s var(--ease);}
+  .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-toggle.open span:nth-child(2){opacity:0;}
+  .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  /* ===== HERO ===== */
+  #home{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:3rem;padding:4.5rem 5vw 5rem;position:relative;overflow:hidden;}
+  .hero-script{font-family:var(--font-script);font-size:1.7rem;color:var(--pink);margin-bottom:.2rem;}
+  .hero-h1{font-family:var(--font-display);font-weight:800;font-size:clamp(2.4rem,4.6vw,3.4rem);line-height:1.15;letter-spacing:-.01em;margin-bottom:1rem;}
+  .hero-h1 .grad-line{display:inline-block;background:linear-gradient(90deg,var(--pink) 0%,var(--maroon) 50%,var(--pink) 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:nameFlow 4.5s linear infinite;}
+  @keyframes nameFlow{0%{background-position:0% 0%;}100%{background-position:200% 0%;}}
+  .hero-badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.06em;color:var(--pink);background:#fff;border:1.5px solid var(--pink-soft);padding:.5rem 1.2rem;border-radius:2rem;margin-bottom:1.1rem;}
+  .hero-desc{font-size:.95rem;line-height:1.75;color:var(--text-gray);max-width:430px;margin-bottom:1.6rem;}
+  .hero-actions{display:flex;gap:.9rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+  .btn-fill{display:inline-flex;align-items:center;gap:.5rem;font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:var(--maroon);padding:.85rem 1.5rem;border-radius:2rem;transition:background .25s,transform .2s,box-shadow .25s;}
+  .btn-fill:hover{background:var(--pink);transform:translateY(-2px);box-shadow:0 10px 24px rgba(214,51,108,.3);}
+  .btn-outline{display:inline-flex;align-items:center;gap:.5rem;font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--pink);background:#fff;border:1.5px solid var(--pink-soft);padding:.85rem 1.5rem;border-radius:2rem;transition:border-color .25s,transform .2s,background .2s;}
+  .btn-outline:hover{border-color:var(--pink);background:var(--blush-2);transform:translateY(-2px);}
+  .hero-socials{display:flex;gap:.7rem;}
+  .hero-socials a{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--pink-soft);display:flex;align-items:center;justify-content:center;color:var(--pink);background:#fff;transition:background .2s,transform .2s,color .2s;}
+  .hero-socials a:hover{background:var(--pink);color:#fff;transform:translateY(-2px);}
+
+  .hero-visual{position:relative;display:flex;align-items:center;justify-content:center;min-height:430px;}
+  .hero-sparkle{position:absolute;color:var(--pink-soft);opacity:.8;}
+  .hero-dots{position:absolute;width:160px;height:160px;left:6%;top:8%;background-image:radial-gradient(var(--pink-soft) 1.5px,transparent 1.5px);background-size:14px 14px;opacity:.5;border-radius:50%;-webkit-mask-image:radial-gradient(circle,black 60%,transparent 100%);mask-image:radial-gradient(circle,black 60%,transparent 100%);}
+  .hero-frame{position:relative;width:340px;height:390px;max-width:88vw;}
+  .hero-circle{position:absolute;top:0;left:50%;transform:translateX(-50%);width:340px;height:340px;max-width:88vw;max-height:88vw;border-radius:50%;overflow:hidden;background:radial-gradient(circle at 35% 30%,#E8718F 0%,var(--pink) 45%,var(--maroon) 100%);box-shadow:0 30px 70px rgba(122,21,56,.3);}
+  .hero-circle img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block;font-size:0;color:transparent;}
+
+  .float-card{position:absolute;display:flex;align-items:center;gap:.6rem;background:#fff;border-radius:14px;padding:.6rem 1rem .6rem .6rem;box-shadow:0 10px 28px rgba(122,21,56,.14);font-size:.8rem;font-weight:600;color:var(--text-dark);white-space:nowrap;animation:floaty 4s ease-in-out infinite;z-index:3;}
+  .float-card .ic{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.05rem;background:var(--blush);color:var(--pink);}
+  .fc-1{top:6%;left:-8%;animation-delay:0s;}
+  .fc-2{top:42%;right:-14%;animation-delay:1.3s;}
+  .fc-3{bottom:6%;right:-10%;animation-delay:2.6s;}
+  @keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+  .float-cards{display:contents;}
+
+  /* ===== ABOUT ===== */
+  #about{margin:1rem 5vw 5rem;background:var(--blush-2);border-radius:28px;padding:2.6rem 2.8rem;display:grid;grid-template-columns:1.1fr 1px 1fr 1fr;gap:2.2rem;align-items:center;position:relative;overflow:hidden;}
+  .about-me{padding-right:1rem;}
+  .about-avatar{width:54px;height:54px;border-radius:50%;background:var(--blush);color:var(--pink);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:.9rem;}
+  .about-title{font-family:var(--font-display);font-weight:700;font-size:1.05rem;letter-spacing:.02em;color:var(--maroon-deep);margin-bottom:.7rem;text-transform:uppercase;}
+  .about-text{font-size:.86rem;line-height:1.7;color:var(--text-gray);}
+  .about-divider{width:1px;height:100%;background:repeating-linear-gradient(to bottom,var(--pink-soft) 0 6px,transparent 6px 12px);justify-self:center;}
+  .about-col{display:flex;flex-direction:column;gap:.9rem;}
+  .stat-box{display:flex;align-items:center;gap:.8rem;background:#fff;border-radius:14px;padding:.85rem 1.1rem;}
+  .stat-box.pink{background:var(--blush);}
+  .stat-icon{width:38px;height:38px;border-radius:50%;background:var(--maroon);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+  .stat-label{font-size:.78rem;font-weight:700;color:var(--text-dark);}
+  .stat-sub{font-size:.76rem;color:var(--text-gray);}
+
+  /* ===== SECTION HEADERS ===== */
+  .section-header{text-align:center;margin-bottom:2.6rem;}
+  .section-eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pink);margin-bottom:.5rem;}
+  .section-h2{font-family:var(--font-display);font-weight:800;font-size:clamp(1.7rem,3vw,2.3rem);color:var(--text-dark);position:relative;display:inline-block;}
+
+  /* ===== PROJECTS ===== */
+  #projects{padding:1rem 5vw 5rem;}
+  .projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem;}
+  .proj-card{background:#fff;border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s;display:flex;flex-direction:row;align-items:stretch;}
+  .proj-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(122,21,56,.12);}
+  .proj-thumb{width:280px;min-width:280px;height:auto;min-height:180px;flex-shrink:0;overflow:hidden;position:relative;}
+  .proj-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .proj-body{padding:1.3rem 1.4rem;display:flex;flex-direction:column;justify-content:center;flex:1;}
+  .proj-num{font-size:.74rem;font-weight:700;color:var(--pink);letter-spacing:.06em;}
+  .proj-title{font-family:var(--font-display);font-weight:700;font-size:1rem;color:var(--maroon-deep);margin:.3rem 0 .5rem;line-height:1.3;}
+  .proj-desc{font-size:.8rem;line-height:1.6;color:var(--text-gray);}
+
+  /* ===== TOOLS ===== */
+  #tools{padding:1rem 5vw 5rem;}
+  .tools-panel{display:flex;flex-wrap:wrap;gap:2.5rem;}
+  .tools-group{flex:1;min-width:260px;}
+  .tools-group h4{font-size:.85rem;font-weight:700;color:var(--text-dark);margin-bottom:1rem;}
+  .tools-row{display:flex;flex-wrap:wrap;gap:1.3rem;}
+  .tool-item{display:flex;flex-direction:column;align-items:center;gap:.45rem;width:64px;}
+  .tool-badge{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;background:#fff;border:1px solid var(--border);box-shadow:0 4px 14px rgba(122,21,56,.07);transition:transform .2s,box-shadow .2s,border-color .2s;}
+  .tool-item:hover .tool-badge{transform:translateY(-4px) scale(1.05);box-shadow:0 10px 26px rgba(122,21,56,.16);border-color:var(--pink-soft);}
+  .tool-item span{font-size:.68rem;color:var(--text-gray);text-align:center;}
+
+  /* ===== EXPERIENCE ===== */
+  #experience{padding:1rem 5vw 5rem;}
+  .exp-grid{display:grid;grid-template-columns:1fr;gap:1.2rem;max-width:860px;margin:0 auto;}
+  .exp-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:1.6rem 2rem;display:flex;gap:1.4rem;align-items:flex-start;transition:box-shadow .3s,transform .3s var(--ease);}
+  .exp-card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(122,21,56,.1);}
+  .exp-icon{width:46px;height:46px;border-radius:13px;background:var(--blush);color:var(--pink);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .exp-body{flex:1;}
+  .exp-period{font-size:.74rem;font-weight:700;letter-spacing:.06em;color:var(--pink);margin-bottom:.25rem;}
+  .exp-role{font-family:var(--font-display);font-weight:700;font-size:1rem;color:var(--maroon-deep);margin-bottom:.15rem;}
+  .exp-company{font-size:.82rem;font-style:italic;color:var(--text-gray);margin-bottom:.8rem;}
+  .exp-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+  .exp-list li{font-size:.82rem;line-height:1.6;color:var(--text-gray);padding-left:1.1rem;position:relative;}
+  .exp-list li::before{content:'▸';position:absolute;left:0;color:var(--pink);font-size:.7rem;top:3px;}
+
+  /* ===== CONTACT ===== */
+  #contact{padding:1rem 5vw 5rem;}
+  .contact-bar{background:var(--blush-2);border-radius:20px;padding:1.6rem 2rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:0;}
+  .contact-pill{display:flex;align-items:center;gap:.7rem;padding:.6rem 1.8rem;font-size:.85rem;font-weight:500;color:var(--text-dark);border-right:1px solid var(--border);}
+  .contact-pill:last-child{border-right:none;}
+  .contact-pill .ic{width:34px;height:34px;border-radius:50%;background:var(--pink);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+  /* ===== FOOTER ===== */
+  footer{background:var(--maroon);padding:4rem 5vw 2rem;position:relative;overflow:hidden;}
+  footer::before{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04);top:-80px;right:-60px;}
+  footer::after{content:'';position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.04);bottom:60px;left:-40px;}
+  .footer-deco{position:absolute;top:0;left:0;width:100%;overflow:hidden;line-height:0;}
+  .footer-inner{display:grid;grid-template-columns:1.4fr 1fr 1.4fr;gap:3rem;padding-bottom:3rem;position:relative;z-index:1;}
+  .footer-logo{font-family:var(--font-display);font-weight:800;font-size:1.3rem;letter-spacing:.02em;text-transform:uppercase;color:#fff;margin-bottom:.5rem;}
+  .footer-tagline{font-size:.82rem;line-height:1.7;color:rgba(255,255,255,.6);margin-bottom:1.3rem;}
+  .footer-socials{display:flex;gap:.6rem;}
+  .footer-socials a{width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.8);transition:background .2s,color .2s,border-color .2s;}
+  .footer-socials a:hover{background:var(--pink);border-color:var(--pink);color:#fff;}
+  .footer-nav-title{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pink-soft);margin-bottom:1rem;}
+  .footer-nav ul{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+  .footer-nav ul a{font-size:.82rem;color:rgba(255,255,255,.7);transition:color .2s;display:flex;align-items:center;gap:.4rem;}
+  .footer-nav ul a::before{content:'›';color:var(--pink-soft);}
+  .footer-nav ul a:hover{color:#fff;}
+  .footer-contact-list{display:flex;flex-direction:column;gap:.7rem;}
+  .footer-contact-item{display:flex;align-items:flex-start;gap:.5rem;font-size:.8rem;color:rgba(255,255,255,.65);line-height:1.4;}
+  .footer-contact-item svg{flex-shrink:0;margin-top:2px;color:var(--pink-soft);}
+  .footer-cv-btn{display:inline-flex;align-items:center;gap:.5rem;font-size:.76rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--maroon);background:var(--pink-soft);padding:.65rem 1.3rem;border-radius:2rem;margin-top:.4rem;transition:background .2s;}
+  .footer-cv-btn:hover{background:#fff;}
+  @media(max-width:880px){
+    .footer-inner{grid-template-columns:1fr;gap:2rem;}
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:980px){
+    #about{grid-template-columns:1fr;padding:2rem 1.6rem;}
+    .about-divider{display:none;}
+    .about-col{flex-direction:row;flex-wrap:wrap;}
+    .stat-box{flex:1;min-width:160px;}
+  }
+
+  @media (max-width:880px){
+    #home{grid-template-columns:1fr;text-align:center;padding:2.5rem 6vw 3rem;}
+    .hero-actions,.hero-socials{justify-content:center;}
+    .hero-desc{margin-left:auto;margin-right:auto;}
+    .hero-visual{order:-1;margin-bottom:1rem;min-height:0;}
+
+    /* Hamburger nav */
+    .nav-links{
+      display:flex;
+      flex-direction:column;
+      position:fixed;
+      top:0;
+      right:0;
+      height:100vh;
+      width:min(78vw,300px);
+      background:#fff;
+      padding:5.5rem 2rem 2rem;
+      gap:1.6rem;
+      box-shadow:-10px 0 40px rgba(122,21,56,.15);
+      transform:translateX(100%);
+      transition:transform .35s var(--ease);
+      z-index:105;
+    }
+    .nav-links.open{transform:translateX(0);}
+    .nav-links a{font-size:.85rem;}
+    .nav-toggle{display:flex;}
+    .nav-cta{display:none;}
+    .nav-cta-mobile{display:block;margin-top:.6rem;}
+    .nav-cta-mobile a{display:inline-flex;align-items:center;gap:.5rem;font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:var(--maroon);padding:.7rem 1.4rem;border-radius:2rem;}
+    .nav-overlay{position:fixed;inset:0;background:rgba(43,14,28,.35);opacity:0;visibility:hidden;transition:opacity .3s;z-index:104;}
+    .nav-overlay.open{opacity:1;visibility:visible;}
+
+    .projects-grid{grid-template-columns:1fr;}
+    .proj-card{flex-direction:column;}
+    .proj-thumb{width:100%;min-height:160px;}
+
+    .exp-card{padding:1.3rem 1.4rem;}
+  }
+
+  @media (max-width:600px){
+    nav{padding:.9rem 5vw;}
+    .nav-sub{display:none;}
+
+    .hero-visual{padding:1rem 0 2.5rem;}
+    .hero-frame{width:min(300px,84vw);height:min(300px,84vw);margin:0 auto;}
+    .hero-circle{width:100%;height:100%;max-width:100%;max-height:100%;}
+    .float-card{font-size:.7rem;padding:.5rem .85rem .5rem .5rem;gap:.45rem;white-space:nowrap;}
+    .float-card .ic{width:28px;height:28px;font-size:.9rem;}
+    .fc-1{left:-6%;top:0%;}
+    .fc-2{right:-14%;top:42%;}
+    .fc-3{right:-8%;bottom:0%;}
+
+    #about{padding:1.6rem 1.2rem;border-radius:20px;}
+    .about-col{flex-direction:column;}
+    .stat-box{min-width:100%;}
+
+    .exp-card{flex-direction:column;align-items:flex-start;}
+
+    .contact-pill{border-right:none;width:100%;justify-content:center;border-bottom:1px solid var(--border);}
+    .contact-pill:last-child{border-bottom:none;}
+
+    .tools-group{min-width:100%;}
+    .tool-item{width:56px;}
+    .tool-badge{width:46px;height:46px;font-size:1.4rem;}
+
+    .footer-inner{padding-bottom:2rem;}
+    .footer-logo{font-size:1.1rem;}
+  }
+
+  @media (max-width:400px){
+    .hero-frame{width:min(230px,74vw);height:min(230px,74vw);}
+    .float-card{font-size:.62rem;padding:.4rem .65rem .4rem .4rem;gap:.35rem;}
+    .float-card .ic{width:22px;height:22px;font-size:.75rem;}
+    .fc-1{left:-2%;top:2%;}
+    .fc-2{right:-6%;top:42%;}
+    .fc-3{right:-2%;bottom:2%;}
+  }
+</style>
+</head>
+<body>
+
+<div class="nav-overlay" id="navOverlay"></div>
+
+<nav id="navbar">
+  <div class="nav-logo-block">
+    <span class="nav-logo">Sinta Nur Annisa</span>
+    <span class="nav-sub">UI/UX Designer & Web Developer</span>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li class="nav-cta-mobile"><a href="cv.pdf" download="CV_Sinta_Nur_Annisa.pdf">Download CV ↓</a></li>
+  </ul>
+  <a class="nav-cta" href="cv.pdf" download="CV_Sinta_Nur_Annisa.pdf">Download CV ↓</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-content reveal">
+    <p class="hero-script">Hello, I'm</p>
+    <h1 class="hero-h1"><span class="grad-line">Sinta Nur Annisa</span></h1>
+    <span class="hero-badge">UI/UX Designer & Web Developer</span>
+    <p class="hero-desc">I am a creative individual who is detail-oriented and passionate about transforming ideas into aesthetic, functional work that delivers meaningful experiences and a positive impact.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-fill">View My Work →</a>
+      <a href="#contact" class="btn-outline">Contact Me →</a>
+    </div>
+    <div class="hero-socials">
+      <a href="https://instagram.com/sintanurannisa_" target="_blank" title="Instagram">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://linkedin.com" target="_blank" title="LinkedIn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      <a href="mailto:sintanurannisa04@gmail.com" title="Email">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m2 7 10 7 10-7"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-visual reveal" style="transition-delay:.15s">
+    <div class="hero-dots"></div>
+    <svg class="hero-sparkle" style="top:10%;right:4%;width:20px" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.2 8.8L23 11l-8.8 2.2L12 22l-2.2-8.8L1 11l8.8-2.2z"/></svg>
+    <svg class="hero-sparkle" style="bottom:14%;left:0;width:12px" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.2 8.8L23 11l-8.8 2.2L12 22l-2.2-8.8L1 11l8.8-2.2z"/></svg>
+    <div class="hero-frame">
+      <div class="hero-circle">
+        <img src="nta.png" alt="Sinta Nur Annisa">
+      </div>
+      <div class="float-cards">
+        <div class="float-card fc-1">
+          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+          UI/UX Design
+        </div>
+        <div class="float-card fc-2">
+          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+          Web Design
+        </div>
+        <div class="float-card fc-3">
+          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+          Prototyping
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="reveal">
+  <div class="about-me">
+    <div class="about-avatar">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <h3 class="about-title">About Me</h3>
+    <p class="about-text">I am a 7th-semester student at Institut Pendidikan Indonesia Garut, majoring in Information Systems. I have a strong enthusiasm for learning new things, especially in technology, design, and system development that can deliver real solutions.</p>
+  </div>
+  <div class="about-divider"></div>
+  <div class="about-col">
+    <div class="stat-box pink">
+      <div class="stat-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      </div>
+      <div><div class="stat-label">Education</div><div class="stat-sub">Institut Pendidikan Indonesia Garut</div></div>
+    </div>
+    <div class="stat-box pink">
+      <div class="stat-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      </div>
+      <div><div class="stat-label">Semester</div><div class="stat-sub">7th Semester</div></div>
+    </div>
+  </div>
+  <div class="about-col">
+    <div class="stat-box">
+      <div class="stat-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div><div class="stat-label">GPA</div><div class="stat-sub">3.92 / 4.00</div></div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <div><div class="stat-label">Major</div><div class="stat-sub">Information Systems</div></div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div><div class="stat-label">Status</div><div class="stat-sub">Active Student</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header reveal">
+    <p class="section-eyebrow">Work Experience</p>
+    <h2 class="section-h2">My Experience</h2>
+  </div>
+  <div class="exp-grid">
+    <div class="exp-card reveal">
+      <div class="exp-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      </div>
+      <div class="exp-body">
+        <p class="exp-period">2024 – 2026</p>
+        <h3 class="exp-role">Operational Staff</h3>
+        <p class="exp-company">PT Alfatih Mulyawati Tour</p>
+        <ul class="exp-list">
+          <li>Assisted in administrative processes and customer data management.</li>
+          <li>Coordinated with related teams to ensure smooth travel operations.</li>
+          <li>Provided information and professional customer service.</li>
+          <li>Created and edited promotional poster designs for social media and travel information needs.</li>
+          <li>Edited photos and videos of travel activity documentation using design editing applications.</li>
+          <li>Assisted in creating visual content to make promotional information more engaging and informative.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header reveal">
+    <p class="section-eyebrow">My Projects</p>
+    <h2 class="section-h2">Selected Work</h2>
+  </div>
+  <div class="projects-grid">
+    <div class="proj-card reveal">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#8E54E9 0%,#4776E6 100%);padding:0;">
+        <img src="bestime.png" alt="UI/UX Bestime" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="proj-body">
+        <p class="proj-num">01</p>
+        <h3 class="proj-title">UI/UX Bestime</h3>
+        <p class="proj-desc">A time management application designed to help users become more productive and organized.</p>
+      </div>
+    </div>
+    <div class="proj-card reveal" style="transition-delay:.1s">
+      <div class="proj-thumb" style="background:radial-gradient(circle,#FBD3E0 0%,#F7A8C4 100%);padding:0;">
+        <img src="sacraft.png" alt="UI/UX Bouquet Ordering SA_Craft" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="proj-body">
+        <p class="proj-num">02</p>
+        <h3 class="proj-title">UI/UX Bouquet Ordering SA_Craft</h3>
+        <p class="proj-desc">A flower bouquet ordering application with an elegant and easy-to-use interface.</p>
+      </div>
+    </div>
+    <div class="proj-card reveal" style="transition-delay:.2s">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#F4E1D2 0%,#E8C4A2 100%);padding:0;">
+        <img src="papandayan.png" alt="Papandayan Ticket Booking Web" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="proj-body">
+        <p class="proj-num">03</p>
+        <h3 class="proj-title">Papandayan Ticket Booking Web</h3>
+        <p class="proj-desc">A tourism ticket booking website for TWA Papandayan with an informative admin dashboard.</p>
+      </div>
+    </div>
+    <div class="proj-card reveal" style="transition-delay:.3s">
+      <div class="proj-thumb" style="background:linear-gradient(135deg,#FBE5EC 0%,#F4A9C2 100%);padding:0;">
+        <img src="ayusa.png" alt="AyuSA Cashier & Financial Management Web" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div class="proj-body">
+        <p class="proj-num">04</p>
+        <h3 class="proj-title">AyuSA Cashier & Financial Management Web</h3>
+        <p class="proj-desc">A web-based cashier and financial management app for Rumah Cemil AyuSA, featuring an admin dashboard and transaction reports.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="section-header reveal">
+    <p class="section-eyebrow">Tools I Use</p>
+    <h2 class="section-h2">My Toolbox</h2>
+  </div>
+  <div class="tools-panel reveal">
+    <div class="tools-group">
+      <h4>UI/UX Design</h4>
+      <div class="tools-row">
+        <div class="tool-item"><div class="tool-badge"><i class="devicon-figma-plain colored"></i></div><span>Figma</span></div>
+        <div class="tool-item"><div class="tool-badge"><svg viewBox="0 0 24 24" width="26" height="26" fill="none"><rect x="2" y="2" width="20" height="20" rx="4" fill="#E8EAF6"/><path d="M12 6v6l4 2" stroke="#5C6BC0" stroke-width="2" stroke-linecap="round"/><rect x="3" y="3" width="7" height="3" rx="1" fill="#9FA8DA"/></svg></div><span>Draw.io</span></div>
+      </div>
+    </div>
+    <div class="tools-group">
+      <h4>Web Development</h4>
+      <div class="tools-row">
+        <div class="tool-item"><div class="tool-badge"><i class="devicon-vscode-plain colored"></i></div><span>VS Code</span></div>
+        <div class="tool-item"><div class="tool-badge"><i class="devicon-codeigniter-plain colored"></i></div><span>Codeigniter</span></div>
+        <div class="tool-item"><div class="tool-badge"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#FB7A24" stroke-width="2"><rect x="3" y="4" width="18" height="5" rx="1.5"/><rect x="3" y="10.5" width="18" height="5" rx="1.5"/><rect x="3" y="17" width="18" height="3.5" rx="1.5"/><circle cx="6.5" cy="6.5" r=".8" fill="#FB7A24" stroke="none"/><circle cx="6.5" cy="13" r=".8" fill="#FB7A24" stroke="none"/></svg></div><span>XAMPP</span></div>
+        <div class="tool-item"><div class="tool-badge"><i class="devicon-mysql-plain colored"></i></div><span>MySQL</span></div>
+        <div class="tool-item"><div class="tool-badge"><i class="devicon-html5-plain colored"></i></div><span>HTML</span></div>
+        <div class="tool-item"><div class="tool-badge"><i class="devicon-css3-plain colored"></i></div><span>CSS</span></div>
+        <div class="tool-item"><div class="tool-badge"><i class="devicon-javascript-plain colored"></i></div><span>JavaScript</span></div>
+        <div class="tool-item"><div class="tool-badge"><i class="devicon-php-plain colored"></i></div><span>PHP</span></div>
+        <div class="tool-item"><div class="tool-badge"><i class="devicon-bootstrap-plain colored"></i></div><span>Bootstrap</span></div>
+        <div class="tool-item"><div class="tool-badge"><i class="devicon-git-plain colored"></i></div><span>Git</span></div>
+        <div class="tool-item"><div class="tool-badge"><i class="devicon-dart-plain colored"></i></div><span>Dart</span></div>
+      </div>
+    </div>
+    <div class="tools-group">
+      <h4>Software & OS</h4>
+      <div class="tools-row">
+        <div class="tool-item"><div class="tool-badge"><svg viewBox="0 0 24 24" width="26" height="26" fill="none"><rect width="24" height="24" rx="4" fill="#F2F2F2"/><rect x="3" y="3" width="8" height="8" rx="1" fill="#F0C000"/><rect x="13" y="3" width="8" height="8" rx="1" fill="#F0C000"/><rect x="3" y="13" width="8" height="8" rx="1" fill="#F0C000"/><rect x="13" y="13" width="8" height="8" rx="1" fill="#F0C000"/></svg></div><span>Power BI</span></div>
+        <div class="tool-item"><div class="tool-badge"><svg viewBox="0 0 24 24" width="26" height="26" fill="none"><rect width="24" height="24" rx="4" fill="#E3F2FD"/><rect x="3" y="5" width="18" height="3" rx="1" fill="#1565C0"/><rect x="3" y="10" width="10" height="2" rx="1" fill="#42A5F5"/><rect x="3" y="14" width="14" height="2" rx="1" fill="#42A5F5"/><rect x="3" y="18" width="8" height="2" rx="1" fill="#42A5F5"/></svg></div><span>ProjectLibre</span></div>
+        <div class="tool-item"><div class="tool-badge"><i class="devicon-linux-plain colored"></i></div><span>Kali Linux</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <p class="section-eyebrow">Get in Touch</p>
+    <h2 class="section-h2">Contact Me</h2>
+  </div>
+  <div class="contact-bar reveal">
+    <a href="https://instagram.com/sntnransa" class="contact-pill" target="_blank">
+      <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></span>
+      @sintanurannisa_
+    </a>
+    <a href="mailto:sintanurannisa04@gmail.com" class="contact-pill">
+      <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg></span>
+      sintanurannisa04@gmail.com
+    </a>
+    <a href="https://wa.me/6283819515364" class="contact-pill" target="_blank">
+      <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></span>
+      +62 838-1951-5364
+    </a>
+    <div class="contact-pill" style="cursor:default">
+      <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span>
+      Kadungora, Garut, West Java
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-deco">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style="position:absolute;top:-1px;left:0;width:100%;height:60px;"><path d="M0,60 C300,120 900,0 1200,60 L1200,0 L0,0 Z" fill="var(--cream)"/></svg>
+  </div>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Sinta Nur Annisa</div>
+      <div class="footer-tagline">Crafting meaningful digital experiences<br/>through design & code.</div>
+      <div class="footer-socials">
+        <a href="https://instagram.com/sntnransa" target="_blank" title="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="mailto:sintanurannisa04@gmail.com" title="Email">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m2 7 10 7 10-7"/></svg>
+        </a>
+        <a href="https://wa.me/6283819515364" target="_blank" title="WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-nav">
+      <p class="footer-nav-title">Navigation</p>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact-col">
+      <p class="footer-nav-title">Contact</p>
+      <div class="footer-contact-list">
+        <div class="footer-contact-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m2 7 10 7 10-7"/></svg>
+          sintanurannisa04@gmail.com
+        </div>
+        <div class="footer-contact-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.72 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.63 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.06 6.06l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +62 838-1951-5364
+        </div>
+        <div class="footer-contact-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Kadungora, Garut, West Java
+        </div>
+        <a href="cv.pdf" download="CV_Sinta_Nur_Annisa.pdf" class="footer-cv-btn">Download CV ↓</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navbar=document.getElementById('navbar');
+  window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>20));
+
+  const navLinks=document.querySelectorAll('.nav-links a');
+  const sections=document.querySelectorAll('section[id]');
+
+  function setActive(id){
+    navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+id));
+  }
+
+  let scrollLock=false;
+  navLinks.forEach(a=>{
+    a.addEventListener('click',()=>{
+      setActive(a.getAttribute('href').replace('#',''));
+      scrollLock=true;
+      setTimeout(()=>scrollLock=false,800);
+      closeMenu();
+    });
+  });
+
+  function onScroll(){
+    if(scrollLock)return;
+    const navH=navbar.offsetHeight+10;
+    let current='home';
+    sections.forEach(s=>{ if(s.getBoundingClientRect().top<=navH) current=s.id; });
+    setActive(current);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+
+  const reveals=document.querySelectorAll('.reveal');
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  },{threshold:.12});
+  reveals.forEach(el=>observer.observe(el));
+
+  /* ===== Mobile hamburger menu ===== */
+  const navToggle=document.getElementById('navToggle');
+  const navLinksEl=document.getElementById('navLinks');
+  const navOverlay=document.getElementById('navOverlay');
+
+  function openMenu(){
+    navToggle.classList.add('open');
+    navLinksEl.classList.add('open');
+    navOverlay.classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function closeMenu(){
+    navToggle.classList.remove('open');
+    navLinksEl.classList.remove('open');
+    navOverlay.classList.remove('open');
+    document.body.style.overflow='';
+  }
+  navToggle.addEventListener('click',()=>{
+    navLinksEl.classList.contains('open') ? closeMenu() : openMenu();
+  });
+  navOverlay.addEventListener('click',closeMenu);
+</script>
+</body>
+</html>
